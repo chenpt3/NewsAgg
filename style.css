@@ -108,7 +108,8 @@ input {
 #news-heading {
     font-size: 2.2rem;
     padding: 1rem;
-    border-bottom: var(--dark-text) 1px solid;
+    display: block;
+    white-space: nowrap;
 }
 
 #news-container {
@@ -151,4 +152,36 @@ input {
 .article-author, .article-date {
   font-size: 0.9rem;
   color: #b0b0b0;
+}
+
+/* Animation */
+@keyframes expanding-border {
+  from {
+    width: 1%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.category-border {
+  border-bottom: var(--dark-text) 1px solid;
+  animation: expanding-border 1s forwards;
+}
+
+.nav-btn::after {
+  content: ""; /* This is necessary for the pseudo element to work. */ 
+  display: block; /* This will put the pseudo element on its own line. */
+  margin: 0 auto; /* This will center the border. */
+  width: 0%; /* Change this to whatever width you want. */
+  border-bottom: var(--dark-text) 1px solid;
+  transition: .5s;
+}
+
+.nav-btn:hover::after {
+  width: 100%;
+}
+
+.nav-btn-active::after {
+  width: 100%;
 }

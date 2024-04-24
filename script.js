@@ -6,6 +6,7 @@ const healthBtn = document.getElementById('health-btn');
 const scienceBtn = document.getElementById('science-btn');
 const sportsBtn = document.getElementById('sports-btn');
 const technologyBtn = document.getElementById('technology-btn');
+const navBtns = document.querySelectorAll('.nav-btn');
 
 // News Container
 const newsContainer = document.getElementById('news-container');
@@ -61,7 +62,6 @@ const getNews = (category) => {
     fetch(url)
         .then(response => response.json())
         .then(data => {
-            newsHeading.innerHTML = category.charAt(0).toUpperCase() + category.slice(1) + ' News';
             newsContainer.scrollTo(0, 0);
             newsContainer.innerHTML = '';
             data.articles.forEach(article => {
@@ -81,9 +81,19 @@ const getNews = (category) => {
                     <p class="article-date">${new Date(article.publishedAt).toDateString()}</p>
                 `;
                 newsContainer.appendChild(articleDiv);
-                let articleHeight = articleDiv.scrollHeight;
-                console.log(articleHeight);
             });
+            newsHeading.classList.toggle("category-border");
+            newsHeading.innerHTML = category.charAt(0).toUpperCase() + category.slice(1) + ' News';
+            void newsHeading.offsetWidth;
+            newsHeading.classList.toggle("category-border");
+            navBtns.forEach(navBtn => {
+                if (navBtn.id === `${category}-btn`) {
+                    navBtn.classList.add('nav-btn-active');
+                } else {
+                    navBtn.classList.remove('nav-btn-active');
+                };
+            });
+
         });
 };
 
