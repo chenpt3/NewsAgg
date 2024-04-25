@@ -9,12 +9,37 @@
   --dark-text: #F7F7FF;
   --dark-search-btn: invert(92%) sepia(5%) saturate(8%) hue-rotate(50deg) brightness(92%) contrast(87%);
   --dark-article-bg: #2b3945;
+  --dark-faded-text: #b0b0b0;
+  --dark-theme-toggle: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
 
   /* Light Mode */
   --light-bg: #f4f4f4;
   --light-main-bg: #fff;
   --light-text: #333;
   --light-search-btn: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+  --light-article-bg: #fff;
+  --light-faded-text: #b0b0b0;
+  --light-theme-toggle: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+}
+
+body.light-theme {
+  --bg: var(--light-bg);
+  --main-bg: var(--light-main-bg);
+  --text: var(--light-text);
+  --search-btn: var(--light-search-btn);
+  --article-bg: var(--light-article-bg);
+  --faded-text: var(--light-faded-text);
+  --theme-toggle: var(--light-theme-toggle);
+}
+
+body:not(.light-theme) {
+  --bg: var(--dark-bg);
+  --main-bg: var(--dark-main-bg);
+  --text: var(--dark-text);
+  --search-btn: var(--dark-search-btn);
+  --article-bg: var(--dark-article-bg);
+  --faded-text: var(--dark-faded-text);
+  --theme-toggle: var(--dark-theme-toggle);
 }
 
 /* Reset */
@@ -30,13 +55,17 @@ a {
 }
 
 /* Main Layout */
+body, header, main, footer {
+  transition: background-color 0.3s ease;
+}
+
 body {
     font-size: 16px;
     font-family: 'Roboto', sans-serif;
     line-height: 1.5;
     width: 100vw;
     height: 100vh;
-    color: var(--dark-text);
+    color: var(--text);
 }
 
 header {
@@ -44,13 +73,13 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: var(--dark-bg);
+    background-color: var(--bg);
     height: 7%;
 }
 
 main {
   height: 86%;
-  background-color: var(--dark-main-bg);
+  background-color: var(--main-bg);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,15 +91,27 @@ footer {
   justify-content: center;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: var(--dark-bg);
+  background-color: var(--bg);
   color: --;
   height: 7%;
 }
 
 /* Header Styles */
+#logo-wrap {
+    display: flex;
+    width: 20%;
+    gap: 3rem;
+}
+
 #logo {
     font-size: 2rem;
     font-weight: 700;
+}
+
+#theme-toggle {
+  width: 50px;
+  filter: var(--theme-toggle);
+  transition: filter 0.3s ease;
 }
 
 ul {
@@ -89,7 +130,8 @@ li, #logo, #search-btn  {
 
 #search {
     display: flex;
-    gap: 1rem;  
+    gap: 1rem;
+    width: 20%;  
 }
 
 input {
@@ -101,7 +143,7 @@ input {
 
 #search-btn {
     width: 27px;
-    filter: var(--dark-search-btn);
+    filter: var(--search-btn);
 }
 
 /* Body Styles */
@@ -125,7 +167,7 @@ input {
   padding: 1rem;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: var(--dark-article-bg);
+  background-color: var(--article-bg);
   overflow: scroll;
   width: 300px;
   height:fit-content;
@@ -141,7 +183,7 @@ input {
   width: 268px;
   height: 250px;
   object-fit: cover;
-  border: var(--dark-article-bg) solid 1px;
+  border: var(--article-bg) solid 1px;
   padding: 10px;
 }
 
@@ -151,7 +193,7 @@ input {
 
 .article-author, .article-date {
   font-size: 0.9rem;
-  color: #b0b0b0;
+  color: var(--faded-text);
 }
 
 /* Animation */
@@ -165,7 +207,7 @@ input {
 }
 
 .category-border {
-  border-bottom: var(--dark-text) 1px solid;
+  border-bottom: var(--text) 1px solid;
   animation: expanding-border 1s forwards;
 }
 
@@ -174,7 +216,7 @@ input {
   display: block; /* This will put the pseudo element on its own line. */
   margin: 0 auto; /* This will center the border. */
   width: 0%; /* Change this to whatever width you want. */
-  border-bottom: var(--dark-text) 1px solid;
+  border-bottom: var(--text) 1px solid;
   transition: .5s;
 }
 
