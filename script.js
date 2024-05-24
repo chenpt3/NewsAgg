@@ -6,7 +6,7 @@ const navBtns = document.querySelectorAll('.nav-btn');
 // Configuration
 const config = {
     apiUrl: 'https://newsapi.org/v2/top-headlines',
-    apiKey: 'e62325b0845b491db32dc98be4ae37cf',
+    apiKey: '435f9b84008a425985f9830ffdf70173',
     countries: ['us', 'il'],
     usSources: ['bbc-news', 'cnn', 'fox-news', 'the-new-york-times', 'the-washington-post', 'usa-today', 'abc-news', 'associated-press', 'reuters', 'the-wall-street-journal', 'google-news'],
     ilSources: ['ynet', 'walla-news', 'haaretz', 'calcalist', 'globes', 'mako', 'sport5', 'one', 'n12', 'news1', 'bizportal', 'themarker', 'channel13', 'israelhayom', 'jpost', 'google-news-il'],
@@ -30,7 +30,7 @@ const getNews = (query, isSearch = false, isHome = false) => {
     newsContainer.innerHTML = '';
     config.countries.forEach(country => {
         const url = getUrl(query, isSearch, country, isHome);
-        fetch(url)
+        fetch(url, {mode: 'cors'})
             .then(response => response.json())
             .then(data => {
             newsContainer.scrollTo(0, 0);
@@ -114,6 +114,7 @@ searchBtn.addEventListener('click', () => {
     };
 });
 
+// Theme Toggle
 const themeToggle = document.getElementById('theme-toggle');
 
 themeToggle.addEventListener('click', () => {
